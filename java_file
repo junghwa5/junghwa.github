@@ -1,0 +1,54 @@
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
+
+class Car {
+	private String model;
+	public Car(String model) {
+		// model을 초기화하는 코드
+		 this.model = model;
+	}
+	public String toString() {
+		// return "";		// null문자를 리턴하게 함
+		return "[" + model + "]";
+	}
+	public boolean equals(Object o)		// Object 타입은 o를 대문자로 써야함
+	{
+		return this.model.equals(((Car)o).model);		// Object o 대신 Car o로 쓰고 return model.equals(o.model);로 써도 됨
+	}
+}
+
+public class CarTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Car myCar = new Car("그랜져");
+		Car yourCar = new Car("그랜져");		// "그랜져"가 아닌 "소나타"라고 쓰면 다르다고 뜸
+		
+		// System.out.println(myCar);
+		// System.out.println(yourCar);
+		
+		// Car 객체 2개를 비교하는 코드
+		if(myCar.equals(yourCar))
+			System.out.println(myCar + "와 " + yourCar + " model이 같습니다.");
+		else
+			System.out.println(myCar + "와 " + yourCar + " model이 다릅니다.");
+		
+		Date d = new Date();
+		// System.out.println(d);
+		SimpleDateFormat sdf1= new SimpleDateFormat("날짜: MM.dd.yyyy");
+		// System.out.println(sdf1.format(d));		// 형식지정한 현재 날짜 정보 출력
+		String s = MessageFormat.format("{0}, 자동차 모델={1}, 운전자(홍길동)", sdf1.format(d), myCar);
+		System.out.println(s);
+		
+		///////////////////////////////
+		
+		StringTokenizer st = new StringTokenizer(s, " ,[]()=");		// 공백과 , 둘다 구분자
+		while(st.hasMoreTokens()) {		// hasMoreTokens()는 뒤에 토큰이 많이 있으면 true를 반환
+			// System.out.println("[" + st.nextToken() + "] ");
+			System.out.println(st.nextToken());
+		}
+	}
+
+}
